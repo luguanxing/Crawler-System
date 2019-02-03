@@ -20,15 +20,15 @@ public class Main {
 
 	// 主程序
 	public static void main(String[] args) {
-		// getRuanjianData();
-		// getTupianData();
-		// getYinpinData();
+		 getRuanjianData();
+		 getTupianData();
+		 getYinpinData();
 	}
 
 	// 爬取软件数据，url使用自增方式
 	public static void getRuanjianData() {
 		int index = 1;
-		int limit = 20; //50000;
+		int limit = 300; //50000;
 		while (index < limit) {
 			try {
 				MyCrawler.getAndSaveJisuDataFromUrl("http://www.jisuxz.com/down/" + index + ".html");
@@ -44,7 +44,7 @@ public class Main {
 	// 爬取图片数据，采用网页上一次性获取所有url的，再二次爬取
 	public static void getTupianData() {
 		int pageIndex = 1;
-		int pageLimit = 1; //218;
+		int pageLimit = 3; //218;
 		while (pageIndex <= pageLimit) {
 			try {
 				// 抓取每页html，解析出每页所含的图片页url
@@ -67,7 +67,7 @@ public class Main {
 	// 爬取音频数据，采用网页上一次性获取所有url的，再二次爬取
 	public static void getYinpinData() {
 		int pageIndex = 1;
-		int pageLimit = 1; //336;
+		int pageLimit = 3; //336;
 		while (pageIndex <= pageLimit) {
 			try {
 				// 抓取每页html，解析出每页所含的音乐页url
