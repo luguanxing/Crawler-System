@@ -1,0 +1,46 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="css">
+        <!-- Bootstrap Styles-->
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- FontAwesome Styles-->
+        <link href="/assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- Morris Chart Styles-->
+        <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+        <!-- Custom Styles-->
+        <link href="/assets/css/custom-styles.css" rel="stylesheet" />
+        <!-- bootstrap-table-->
+        <link href="/assets/css/bootstrap-table.min.css" rel="stylesheet" />
+    </div>
+
+    <div th:fragment="js">
+        <!-- JS Scripts-->
+        <!-- jQuery Js -->
+        <script src="/assets/js/jquery.min.js"></script>
+        <!-- Bootstrap Js -->
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <!-- bootstrap-table -->
+        <script src="/assets/js/bootstrap-table.min.js"></script>
+        <!-- Metis Menu Js -->
+        <script src="/assets/js/jquery.metisMenu.js"></script>
+        <!-- 表格js函数 -->
+	    <!-- Custom Js -->
+	    <script src="/assets/js/custom-scripts.js"></script>
+    </div>
+
+    <div th:fragment="nav">
+      <nav class="navbar navbar-default top-navbar" role="navigation">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                  <span class="sr-only"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/index.html">数据可视化系统</a>
+          </div>
+      </nav>
+    </div>
+  </body>
+</html> 

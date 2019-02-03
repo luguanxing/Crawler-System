@@ -1,0 +1,71 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="left">
+            <!--/. NAV TOP  -->
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+                        <li>
+                            <a href="/index.html">
+                                <i class="fa fa-book"></i>主页总览<span class="fa"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/#" id="ruanjian_nav">
+                                <i class="fa fa-sitemap"></i>软件资源<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level" aria-expanded="true" >
+                                <li>
+                                    <a id="ruanjian_data" href="/ruanjian/data.html"><i class="fa fa-dashboard"></i> 数据总览 </a>
+                                </li>
+                                <li>
+                                    <a id="ruanjian_charts" href="/ruanjian/chart.html"><i class="fa fa-bar-chart-o"></i> 图表总览 </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/#" id="tupian_nav">
+                                <i class="fa fa-sitemap"></i>图片资源<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level" aria-expanded="true" >
+                                <li>
+                                    <a id="tupian_data" href="/tupian/data.html"><i class="fa fa-dashboard"></i> 数据总览 </a>
+                                </li>
+                                <li>
+                                    <a id="tupian_charts" href="/tupian/chart.html"><i class="fa fa-bar-chart-o"></i> 图表总览 </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/#" id="yinxiao_nav">
+                                <i class="fa fa-sitemap"></i>音效资源<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level" aria-expanded="true" >
+                                <li>
+                                    <a id="yinxiao_data" href="/yinxiao/data.html"><i class="fa fa-dashboard"></i> 数据总览 </a>
+                                </li>
+                                <li>
+                                    <a id="yinxiao_charts" href="/yinxiao/chart.html"><i class="fa fa-bar-chart-o"></i> 图表总览 </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/#" id="daima_nav">
+                                <i class="fa fa-sitemap"></i>代码资源<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level" aria-expanded="true" >
+                                <li>
+                                    <a id="daima_data" href="/daima/data.html"><i class="fa fa-dashboard"></i> 数据总览 </a>
+                                </li>
+                                <li>
+                                    <a id="daima_charts" href="/daima/chart.html"><i class="fa fa-bar-chart-o"></i> 图表总览 </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+    </div>
+  </body>
+</html> 
