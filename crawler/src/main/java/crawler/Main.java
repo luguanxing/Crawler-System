@@ -22,7 +22,7 @@ public class Main {
 	public static void main(String[] args) {
 		// getRuanjianData();
 		// getTupianData();
-		getYinpinData();
+		// getYinpinData();
 	}
 
 	// 爬取软件数据，url使用自增方式
