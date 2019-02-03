@@ -17,7 +17,7 @@ import crawler.entity.SheTuContent_HTML;
 
 public class MyCrawler {
 
-	private static String getContentFromUrl(String url) throws Exception {
+	public static String getHtmlContentFromUrl(String url) throws Exception {
 		// 创建httpClient客户端实例
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		//设置代理IP
@@ -46,7 +46,7 @@ public class MyCrawler {
 	public static void getAndSaveJisuDataFromUrl(String url) {
 		try {
 			// 抓取网页
-			String html = MyCrawler.getContentFromUrl(url);
+			String html = MyCrawler.getHtmlContentFromUrl(url);
 			// 解析内容
 			JiSuContent_HTML htmlEntity = MyParser.parseJiSuContent(html);
 			// 转换内容
@@ -66,7 +66,7 @@ public class MyCrawler {
 	public static void getAndSaveTupianDataFromUrl(String url) {
 		try {
 			// 抓取网页
-			String html = MyCrawler.getContentFromUrl(url);
+			String html = MyCrawler.getHtmlContentFromUrl(url);
 			// 解析内容
 			BaoTuContent_HTML htmlEntity = MyParser.parseBaotuContent(html);
 			// 转换内容
@@ -86,7 +86,7 @@ public class MyCrawler {
 	public static void getAndSaveYinpinDataFromUrl(String url) {
 		try {
 			// 抓取网页
-			String html = MyCrawler.getContentFromUrl(url);
+			String html = MyCrawler.getHtmlContentFromUrl(url);
 			// 解析内容
 			SheTuContent_HTML htmlEntity = MyParser.parseShetuContent(html);
 			// 转换内容
