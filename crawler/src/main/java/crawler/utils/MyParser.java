@@ -1,5 +1,8 @@
 package crawler.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -60,7 +63,7 @@ public class MyParser {
 		return object;
 	}
 
-	public static BaoTuContent_HTML parseBaotuContent(String htmlContent) throws Exception {
+	public static BaoTuContent_HTML parseBaoTuContent(String htmlContent) throws Exception {
 		BaoTuContent_HTML object = new BaoTuContent_HTML();
 		Document document = Jsoup.parse(htmlContent);
 		// 解析名字
@@ -106,7 +109,7 @@ public class MyParser {
 		return object;
 	}
 
-	public static SheTuContent_HTML parseShetuContent(String htmlContent) {
+	public static SheTuContent_HTML parseSheTuContent(String htmlContent) {
 		SheTuContent_HTML object = new SheTuContent_HTML();
 		Document document = Jsoup.parse(htmlContent);
 		// 解析名字
@@ -142,6 +145,30 @@ public class MyParser {
 			}
 		}
 		return object;
+	}
+
+	public static List<String> getBaoTuUrls(String html) {
+		Document document = Jsoup.parse(html);
+		List<String> urls = new ArrayList<>();
+		Elements elements = document.select(".jump-details-seo");
+		for (Element element : elements) {
+			String url = element.attr("seo-url");
+			url = "https://www." + url.substring(2);
+			urls.add(url);
+		}
+		return urls;
+	}
+
+	public static List<String> getSheTuUrls(String html) {
+		Document document = Jsoup.parse(html);
+		List<String> urls = new ArrayList<>();
+		Elements elements = document.select(".soundEffect-msgImg");
+		for (Element element : elements) {
+			String url = element.child(0).attr("href");
+			url = "http://www." + url.substring(2);
+			urls.add(url);
+		}
+		return urls;
 	}
 
 }

@@ -68,7 +68,7 @@ public class MyCrawler {
 			// 抓取网页
 			String html = MyCrawler.getHtmlContentFromUrl(url);
 			// 解析内容
-			BaoTuContent_HTML htmlEntity = MyParser.parseBaotuContent(html);
+			BaoTuContent_HTML htmlEntity = MyParser.parseBaoTuContent(html);
 			// 转换内容
 			BaoTuContent_ES baoTuContent_ES = MyConverter.convertToBaoTuEsEntity(htmlEntity);
 			// 写入ES中
@@ -88,7 +88,7 @@ public class MyCrawler {
 			// 抓取网页
 			String html = MyCrawler.getHtmlContentFromUrl(url);
 			// 解析内容
-			SheTuContent_HTML htmlEntity = MyParser.parseShetuContent(html);
+			SheTuContent_HTML htmlEntity = MyParser.parseSheTuContent(html);
 			// 转换内容
 			SheTuContent_ES sheTuContent_ES = MyConverter.convertToSheTuEsEntity(htmlEntity);
 			// 写入ES中
