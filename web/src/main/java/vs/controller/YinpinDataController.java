@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import vs.enity.TableSplitResult;
+import vs.enity.es.LineData;
 import vs.enity.es.yinpin.YinpinPojo;
 import vs.service.YinpinService;
 
@@ -31,6 +34,13 @@ public class YinpinDataController {
 		}
 		List<YinpinPojo> list = esService.getYinpinList(startRow, pageSize);
 		return new TableSplitResult<List<YinpinPojo>>(0, totalCount, list);
+	}
+
+	@RequestMapping("/fileSize")
+	@ResponseBody
+	public String getFileSize() {
+		LineData fileSizeData = esService.getFileSize();
+		return new Gson().toJson(fileSizeData);
 	}
 
 }

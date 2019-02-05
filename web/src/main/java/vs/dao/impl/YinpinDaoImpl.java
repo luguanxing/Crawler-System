@@ -1,7 +1,9 @@
 package vs.dao.impl;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -9,6 +11,10 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.range.Range;
+import org.elasticsearch.search.aggregations.bucket.range.RangeAggregationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -51,6 +57,29 @@ public class YinpinDaoImpl implements YinpinDao {
 			list.add(object);
 		}
 		return list;
+	}
+
+	@Override
+	public Map<String, Long> getFileSize(Integer[] xAxis) {
+		SearchRequestBuilder srb = client.prepareSearch(INDEX).setTypes(TYPE_YINPIN);
+		RangeAggregationBuilder rangeAggs = AggregationBuilders.range("size_range").field("musicSize");
+		rangeAggs.addUnboundedTo(xAxis[0]);
+		for (int i = 0; i < xAxis.length - 1; i++) {
+			rangeAggs.addRange(xAxis[i], xAxis[i + 1]);
+		}
+		rangeAggs.addUnboundedFrom(xAxis[xAxis.length - 1]);
+		srb.addAggregation(rangeAggs).setSize(0);
+		SearchResponse response = srb.execute().actionGet();
+		Map<String, Aggregation> aggMap = response.getAggregations().asMap();
+		Range rangeAgg = (Range) aggMap.get("size_range");
+		List<? extends org.elasticsearch.search.aggregations.bucket.range.Range.Bucket> buckets = rangeAgg.getBuckets();
+		Map<String, Long> result = new LinkedHashMap<>();
+		for (org.elasticsearch.search.aggregations.bucket.range.Range.Bucket bucket : buckets) {
+			Long count = bucket.getDocCount();
+			String name = bucket.getKeyAsString();
+			result.put(name, count);
+		}
+		return result;
 	}
 
 }

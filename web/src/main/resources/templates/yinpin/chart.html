@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>数据可视化系统</title>
+        <div th:include="tags/tag::css"></div>
+        <div th:include="tags/tag::js"></div>
+        <!-- echarts -->
+        <script src="/assets/js/echarts.min.js"></script>
+        <script src="/assets/js/musicChart.js"></script>
+    </head>
+    
+    <body>
+        <div id="wrapper">
+        	<!-- 导航栏 -->
+            <div th:include="tags/tag::nav"></div>
+            <div th:include="tags/nav::left"></div>
+            <script>
+                $(function(){ 
+                    $("#yinpin_charts").addClass("active-menu");
+                    $("#yinpin_nav").click();
+                })
+            </script>
+            <!-- 正文  -->
+               <div id="page-wrapper" style="min-height:800px">
+                <div id="page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                           <h1 class="page-header">曲线图标 <small> 基本特征分布 </small>
+                           </h1>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-12 col-sm-12 col-xs-12">                     
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">/data/yinpin/fileSize</div>
+                                    <div class="panel-body">
+                                        <div id="fileSizeChart" style="width:600px; height: 400px;"></div>
+                                    </div>
+                                </div>            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
