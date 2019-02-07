@@ -13,4 +13,6 @@ public interface YinpinService {
 
 	LineData getFileSize();
 
+	LineData getMusicLong();
+
 }

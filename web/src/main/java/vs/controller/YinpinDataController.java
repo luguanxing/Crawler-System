@@ -43,4 +43,10 @@ public class YinpinDataController {
 		return new Gson().toJson(fileSizeData);
 	}
 
+	@RequestMapping("/musicLong")
+	@ResponseBody
+	public String getMusicLong() {
+		LineData musicLongData = esService.getMusicLong();
+		return new Gson().toJson(musicLongData);
+	}
 }

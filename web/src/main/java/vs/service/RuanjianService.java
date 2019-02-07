@@ -20,5 +20,9 @@ public interface RuanjianService {
 	LineData getFileSize();
 
 	LineDataDouble getRateAvgDownloadTimes();
+
+	List<CakeData> getCategory();
+
+	List<CakeData> getType();
 	
 }

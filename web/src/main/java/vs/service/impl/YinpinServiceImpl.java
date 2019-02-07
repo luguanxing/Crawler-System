@@ -45,4 +45,21 @@ public class YinpinServiceImpl implements YinpinService {
 		return result;
 	}
 
+	@Override
+	public LineData getMusicLong() {
+		// 下标边界数组
+		Integer[] xAxis = { 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300 };
+		LineData result = new LineData();
+		List<String> xAxisNames = new ArrayList<>();
+		List<Long> seriesDatas = new ArrayList<>();
+		Map<String, Long> fileSizeMap = esDao.getMusicLong(xAxis);
+		for (String xAxisName : fileSizeMap.keySet()) {
+			xAxisNames.add(xAxisName);
+			seriesDatas.add(fileSizeMap.get(xAxisName));
+		}
+		result.setxAxisNames(xAxisNames);
+		result.setSeriesDatas(seriesDatas);
+		return result;
+	}
+
 }

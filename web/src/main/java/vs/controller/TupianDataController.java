@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import vs.enity.TableSplitResult;
+import vs.enity.es.CakeData;
 import vs.enity.es.LineData;
 import vs.enity.es.tupian.TupianPojo;
 import vs.service.TupianService;
@@ -42,4 +43,10 @@ public class TupianDataController {
 		return new Gson().toJson(fileSizeData);
 	}
 
+	@RequestMapping("/picPixel")
+	@ResponseBody
+	public String getpicPixel() {
+		List<CakeData> picPixelJson = esService.getPicPixel();
+		return new Gson().toJson(picPixelJson);
+	}
 }

@@ -66,4 +66,18 @@ public class RuanjianDataController {
 		return new Gson().toJson(rateAvgDownloadTimesData);
 	}
 
+	@RequestMapping("/category")
+	@ResponseBody
+	public String getCategory() {
+		List<CakeData> categoryJson = esService.getCategory();
+		return new Gson().toJson(categoryJson);
+	}
+
+	@RequestMapping("/type")
+	@ResponseBody
+	public String getType() {
+		List<CakeData> typeJson = esService.getType();
+		return new Gson().toJson(typeJson);
+	}
+
 }

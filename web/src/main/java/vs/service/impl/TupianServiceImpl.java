@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vs.dao.TupianDao;
+import vs.enity.es.CakeData;
 import vs.enity.es.LineData;
 import vs.enity.es.tupian.TupianPojo;
 import vs.service.TupianService;
@@ -42,6 +43,19 @@ public class TupianServiceImpl implements TupianService {
 		}
 		result.setxAxisNames(xAxisNames);
 		result.setSeriesDatas(seriesDatas);
+		return result;
+	}
+
+	@Override
+	public List<CakeData> getPicPixel() {
+		Map<String, Long> sizeMap = esDao.getPicPixel();
+		List<CakeData> result = new ArrayList<>();
+		for (String name : sizeMap.keySet()) {
+			CakeData cakeData = new CakeData();
+			cakeData.setName(name);
+			cakeData.setValue(sizeMap.get(name));
+			result.add(cakeData);
+		}
 		return result;
 	}
 

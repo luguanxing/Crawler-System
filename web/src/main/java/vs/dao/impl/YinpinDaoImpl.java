@@ -82,4 +82,27 @@ public class YinpinDaoImpl implements YinpinDao {
 		return result;
 	}
 
+	@Override
+	public Map<String, Long> getMusicLong(Integer[] xAxis) {
+		SearchRequestBuilder srb = client.prepareSearch(INDEX).setTypes(TYPE_YINPIN);
+		RangeAggregationBuilder rangeAggs = AggregationBuilders.range("size_range").field("musicLong");
+		rangeAggs.addUnboundedTo(xAxis[0]);
+		for (int i = 0; i < xAxis.length - 1; i++) {
+			rangeAggs.addRange(xAxis[i], xAxis[i + 1]);
+		}
+		rangeAggs.addUnboundedFrom(xAxis[xAxis.length - 1]);
+		srb.addAggregation(rangeAggs).setSize(0);
+		SearchResponse response = srb.execute().actionGet();
+		Map<String, Aggregation> aggMap = response.getAggregations().asMap();
+		Range rangeAgg = (Range) aggMap.get("size_range");
+		List<? extends org.elasticsearch.search.aggregations.bucket.range.Range.Bucket> buckets = rangeAgg.getBuckets();
+		Map<String, Long> result = new LinkedHashMap<>();
+		for (org.elasticsearch.search.aggregations.bucket.range.Range.Bucket bucket : buckets) {
+			Long count = bucket.getDocCount();
+			String name = bucket.getKeyAsString();
+			result.put(name, count);
+		}
+		return result;
+	}
+
 }

@@ -98,5 +98,31 @@ public class RuanjianServiceImpl implements RuanjianService {
 		result.setSeriesDatas(seriesDatas);
 		return result;
 	}
+
+	@Override
+	public List<CakeData> getCategory() {
+		Map<String, Long> rateMap = esDao.getCategory();
+		List<CakeData> result = new ArrayList<>();
+		for (String name : rateMap.keySet()) {
+			CakeData cakeData = new CakeData();
+			cakeData.setName(name);
+			cakeData.setValue(rateMap.get(name));
+			result.add(cakeData);
+		}
+		return result;
+	}
+
+	@Override
+	public List<CakeData> getType() {
+		Map<String, Long> rateMap = esDao.getType();
+		List<CakeData> result = new ArrayList<>();
+		for (String name : rateMap.keySet()) {
+			CakeData cakeData = new CakeData();
+			cakeData.setName(name);
+			cakeData.setValue(rateMap.get(name));
+			result.add(cakeData);
+		}
+		return result;
+	}
 	
 }

@@ -13,4 +13,6 @@ public interface TupianDao {
 
 	Map<String, Long> getFileSize(Integer[] xAxis);
 
+	Map<String, Long> getPicPixel();
+
 }

@@ -20,6 +20,7 @@ import org.elasticsearch.search.aggregations.bucket.range.Range;
 import org.elasticsearch.search.aggregations.bucket.range.RangeAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.LongTerms.Bucket;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.avg.AvgAggregationBuilder;
@@ -150,6 +151,50 @@ public class RuanjianDaoImpl implements RuanjianDao {
 			Map<String, Aggregation> rateAvgDownloadTimesMap = bucket.getAggregations().asMap();
 			InternalAvg rateAvgDownloadTimesAvg = (InternalAvg) rateAvgDownloadTimesMap.get("avg_downloadTimes");
 			Double count = rateAvgDownloadTimesAvg.getValue();
+			String name = bucket.getKeyAsString();
+			result.put(name, count);
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, Long> getCategory() {
+		SearchRequestBuilder srb = client.prepareSearch(INDEX).setTypes(TYPE_RUANJIAN);
+		TermsAggregationBuilder rateAggs = AggregationBuilders.terms("group_by_category")
+				.field("softCategory.keyword")
+				.size(100) // 分组的结果最多显示前100个
+				.order(Order.term(true));
+		srb.addAggregation(rateAggs).setSize(0);
+		SearchResponse response = srb.execute().actionGet();
+		Map<String, Aggregation> aggMap = response.getAggregations().asMap();
+		StringTerms rateAgg = (StringTerms) aggMap.get("group_by_category");
+		List<org.elasticsearch.search.aggregations.bucket.terms.StringTerms.Bucket> buckets = rateAgg.getBuckets();
+		// 使用LinkedHashMap保证键有序，且键唯一
+		Map<String, Long> result = new LinkedHashMap<>();
+		for (org.elasticsearch.search.aggregations.bucket.terms.StringTerms.Bucket bucket : buckets) {
+			Long count = bucket.getDocCount();
+			String name = bucket.getKeyAsString();
+			result.put(name, count);
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, Long> getType() {
+		SearchRequestBuilder srb = client.prepareSearch(INDEX).setTypes(TYPE_RUANJIAN);
+		TermsAggregationBuilder rateAggs = AggregationBuilders.terms("group_by_type")
+				.field("softType.keyword")
+				.size(100) // 分组的结果最多显示前100个
+				.order(Order.term(true));
+		srb.addAggregation(rateAggs).setSize(0);
+		SearchResponse response = srb.execute().actionGet();
+		Map<String, Aggregation> aggMap = response.getAggregations().asMap();
+		StringTerms rateAgg = (StringTerms) aggMap.get("group_by_type");
+		List<org.elasticsearch.search.aggregations.bucket.terms.StringTerms.Bucket> buckets = rateAgg.getBuckets();
+		// 使用LinkedHashMap保证键有序，且键唯一
+		Map<String, Long> result = new LinkedHashMap<>();
+		for (org.elasticsearch.search.aggregations.bucket.terms.StringTerms.Bucket bucket : buckets) {
+			Long count = bucket.getDocCount();
 			String name = bucket.getKeyAsString();
 			result.put(name, count);
 		}

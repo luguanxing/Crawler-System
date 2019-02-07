@@ -3,7 +3,9 @@ window.onload = function() {
 	loadFileSizeChart();
     loadUpdateTimeChart();
     loadRateChart();
-    loadRateAvgDownloadTimes();
+    loadRateAvgDownloadTimesChart();
+    loadCategoryChart();
+    loadTypeChart();
 }
 
 function loadFileSizeChart() {
@@ -135,7 +137,7 @@ function loadRateChart() {
     
 }
 
-function loadRateAvgDownloadTimes() {
+function loadRateAvgDownloadTimesChart() {
     // 后台获取数据
     $.ajax({
         url:"/data/ruanjian/rateAvgDownloadTimes",
@@ -171,4 +173,91 @@ function loadRateAvgDownloadTimes() {
 		    rateAvgDownloadTimesChart.setOption(option);
         }
     });
+}
+
+function loadCategoryChart() {
+    
+    // 后台获取数据
+    $.ajax({
+        url:"/data/ruanjian/category",
+        success:function(categoryData){
+            //指定图标的配置和数据
+            var option = {
+                    title:{
+                        text:'软件类别分布'
+                    },            
+                    series:[{
+                        name:'软件类别',
+                        type:'pie',    
+                        radius:'90%', 
+                        data:JSON.parse(categoryData),
+                        itemStyle:{ 
+                            normal:{ 
+                                label:{ 
+                                    show: true, 
+                                    formatter: '"{b}"{c}条' 
+                                }, 
+                                labelLine :{show:true} 
+                           } 
+                        } 
+                    }]
+                   
+                };
+            
+            //初始化echarts实例
+            var categoryChart = echarts.init(document.getElementById('categoryChart'));
+
+            // 自适应父容器大小
+            $("#categoryChart").width($("#categoryChart").parent().width());
+            categoryChart.resize();
+            
+            //使用制定的配置项和数据显示图表
+            categoryChart.setOption(option);
+        }
+    });
+    
+}
+
+
+function loadTypeChart() {
+    
+    // 后台获取数据
+    $.ajax({
+        url:"/data/ruanjian/type",
+        success:function(typeData){
+            //指定图标的配置和数据
+            var option = {
+                    title:{
+                        text:'软件类型分布'
+                    },            
+                    series:[{
+                        name:'软件类型',
+                        type:'pie',    
+                        radius:'90%', 
+                        data:JSON.parse(typeData),
+                        itemStyle:{ 
+                            normal:{ 
+                                label:{ 
+                                    show: true, 
+                                    formatter: '"{b}"共{c}条(占比{d}%)' 
+                                }, 
+                                labelLine :{show:true} 
+                           } 
+                        } 
+                    }]
+                   
+                };
+            
+            //初始化echarts实例
+            var typeChart = echarts.init(document.getElementById('typeChart'));
+
+            // 自适应父容器大小
+            $("#typeChart").width($("#typeChart").parent().width());
+            typeChart.resize();
+            
+            //使用制定的配置项和数据显示图表
+            typeChart.setOption(option);
+        }
+    });
+    
 }

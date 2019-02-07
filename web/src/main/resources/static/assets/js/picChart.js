@@ -1,6 +1,7 @@
 
 window.onload = function() {
 	loadFileSizeChart();
+	loadPicPixelChart();
 }
 
 function loadFileSizeChart() {
@@ -45,3 +46,45 @@ function loadFileSizeChart() {
     });
 }
 
+function loadPicPixelChart() {
+    
+    // 后台获取数据
+    $.ajax({
+        url:"/data/tupian/picPixel",
+        success:function(PicPixelData){
+            //指定图标的配置和数据
+            var option = {
+                    title:{
+                        text:'图片大小分布'
+                    },            
+                    series:[{
+                        name:'大小',
+                        type:'pie',    
+                        radius:'90%', 
+                        data:JSON.parse(PicPixelData),
+                        itemStyle:{ 
+                            normal:{ 
+                                label:{ 
+                                    show: true, 
+                                    formatter: '{b}共{c}个(占{d}%)' 
+                                }, 
+                                labelLine :{show:true} 
+                           } 
+                        } 
+                    }]
+                   
+                };
+            
+            //初始化echarts实例
+            var picPixelChart = echarts.init(document.getElementById('picPixelChart'));
+
+            // 自适应父容器大小
+            $("#picPixelChart").width($("#picPixelChart").parent().width());
+            picPixelChart.resize();
+            
+            //使用制定的配置项和数据显示图表
+            picPixelChart.setOption(option);
+        }
+    });
+    
+}

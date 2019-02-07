@@ -13,4 +13,6 @@ public interface YinpinDao {
 
 	Map<String, Long> getFileSize(Integer[] xAxis);
 
+	Map<String, Long> getMusicLong(Integer[] xAxis);
+
 }
