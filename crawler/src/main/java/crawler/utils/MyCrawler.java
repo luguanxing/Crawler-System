@@ -57,6 +57,8 @@ public class MyCrawler {
 			System.out.println();
 			// 写入ES中
 			MyEsUtil.addJiSuToEs(esEntity);
+			// 写入Excel中
+			MyExcelUtil.addJiSuToEs(esEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -71,12 +73,14 @@ public class MyCrawler {
 			BaoTuContent_HTML htmlEntity = MyParser.parseBaoTuContent(html);
 			// 转换内容
 			BaoTuContent_ES baoTuContent_ES = MyConverter.convertToBaoTuEsEntity(htmlEntity);
-			// 写入ES中
-			MyEsUtil.addBaotuToEs(baoTuContent_ES);
 			// 输出检查
 			System.out.println(htmlEntity);
 			System.out.println(baoTuContent_ES);
 			System.out.println();
+			// 写入ES中
+			MyEsUtil.addBaotuToEs(baoTuContent_ES);
+			// 写入Excel中
+			MyExcelUtil.addBaotuToEs(baoTuContent_ES);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,12 +95,14 @@ public class MyCrawler {
 			SheTuContent_HTML htmlEntity = MyParser.parseSheTuContent(html);
 			// 转换内容
 			SheTuContent_ES sheTuContent_ES = MyConverter.convertToSheTuEsEntity(htmlEntity);
-			// 写入ES中
-			MyEsUtil.addShetuToEs(sheTuContent_ES);
 			// 输出检查
 			System.out.println(htmlEntity);
 			System.out.println(sheTuContent_ES);
 			System.out.println();
+			// 写入ES中
+			MyEsUtil.addShetuToEs(sheTuContent_ES);
+			// 写入Excel中
+			MyExcelUtil.addShetuToEs(sheTuContent_ES);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
