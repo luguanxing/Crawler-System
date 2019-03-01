@@ -21,7 +21,7 @@ public class EsDaoTest {
 
 	@Test
 	public void testGetList() {
-		List<RuanjianPojo> list = esDao.getList(10185, 1);
+		List<RuanjianPojo> list = esDao.getList(1, 1);
 		System.out.println(list);
 	}
 

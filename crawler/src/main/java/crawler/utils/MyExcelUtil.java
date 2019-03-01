@@ -62,7 +62,7 @@ public class MyExcelUtil {
 		row.createCell(7).setCellValue(softRate);
 		row.createCell(8).setCellValue(language);
 		softRowIndex++;
-		FileOutputStream fileOut = new FileOutputStream("e:\\软件数据.xls");
+		FileOutputStream fileOut = new FileOutputStream("软件数据.xls");
 		softWb.write(fileOut);
 	}
 
@@ -97,7 +97,7 @@ public class MyExcelUtil {
 		row.createCell(6).setCellValue(picFormat);
 		row.createCell(7).setCellValue(picSoftware);
 		picRowIndex++;
-		FileOutputStream fileOut = new FileOutputStream("e:\\图片数据.xls");
+		FileOutputStream fileOut = new FileOutputStream("图片数据.xls");
 		picSoftWb.write(fileOut);
 	}
 
@@ -132,7 +132,7 @@ public class MyExcelUtil {
 		row.createCell(6).setCellValue(musicSoftware);
 		row.createCell(7).setCellValue(musicUploader);
 		musicRowIndex++;
-		FileOutputStream fileOut = new FileOutputStream("e:\\音频数据.xls");
+		FileOutputStream fileOut = new FileOutputStream("音频数据.xls");
 		musicSoftWb.write(fileOut);
 	}
 

@@ -21,7 +21,7 @@ import crawler.entity.SheTuContent_ES;
  */
 public class MyEsUtil {
 
-	private static String host = "192.168.25.149"; // 服务器地址
+	private static String host = "127.0.0.1"; // 服务器地址
 	private static int port = 9300; // 端口
 	
 	private static String INDEX = "data"; // ES的Index

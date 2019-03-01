@@ -1,0 +1,60 @@
+-------------------------------------------------------------------------------
+Test set: test.es.EsTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 14, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec <<< FAILURE!
+test.es.EsTest.testSearchMulti()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchMulti(EsTest.java:270)
+
+test.es.EsTest.testSearchFilter()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchFilter(EsTest.java:223)
+
+test.es.EsTest.testGet()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testGet(EsTest.java:70)
+
+test.es.EsTest.testAddIndex()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testAddIndex(EsTest.java:58)
+
+test.es.EsTest.testUpdate()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testUpdate(EsTest.java:83)
+
+test.es.EsTest.testDelete()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testDelete(EsTest.java:96)
+
+test.es.EsTest.testIndexAddData()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testIndexAddData(EsTest.java:173)
+
+test.es.EsTest.testSearchAll()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchAll(EsTest.java:184)
+
+test.es.EsTest.testSearchPage()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchPage(EsTest.java:196)
+
+test.es.EsTest.testSearchSort()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchSort(EsTest.java:210)
+
+test.es.EsTest.testSearchCondition()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchCondition(EsTest.java:236)
+
+test.es.EsTest.testSearchHighLight()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchHighLight(EsTest.java:249)
+
+test.es.EsTest.testSearchMultiScore()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchMultiScore(EsTest.java:286)
+
+test.es.EsTest.testSearchMultiRange()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at test.es.EsTest.testSearchMultiRange(EsTest.java:304)
+
