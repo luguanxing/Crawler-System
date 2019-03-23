@@ -24,5 +24,9 @@ public interface RuanjianService {
 	List<CakeData> getCategory();
 
 	List<CakeData> getType();
+
+	LineData getFileSize(String aggType, String aggSizesArray);
+
+	LineData getFileSize(String aggType, Integer aggSize);
 	
 }

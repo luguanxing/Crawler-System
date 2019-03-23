@@ -35,7 +35,7 @@ public class TupianServiceImpl implements TupianService {
 		Integer[] xAxis = { 1, 10, 20, 30, 50, 80, 100, 150, 200 };
 		LineData result = new LineData();
 		List<String> xAxisNames = new ArrayList<>();
-		List<Long> seriesDatas = new ArrayList<>();
+		List<Object> seriesDatas = new ArrayList<>();
 		Map<String, Long> fileSizeMap = esDao.getFileSize(xAxis);
 		for (String xAxisName : fileSizeMap.keySet()) {
 			xAxisNames.add(xAxisName);

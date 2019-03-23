@@ -21,7 +21,7 @@ public class RuanjianServiceImpl implements RuanjianService {
 
 	@Autowired
 	private RuanjianDao esDao;
-	
+
 	@Override
 	public List<RuanjianPojo> getList(Integer startRow, Integer pageSize) {
 		return esDao.getList(startRow, pageSize);
@@ -50,7 +50,7 @@ public class RuanjianServiceImpl implements RuanjianService {
 		Map<String, Long> updateTimeMap = esDao.getUpdateTime();
 		LineData result = new LineData();
 		List<String> xAxisNames = new ArrayList<>();
-		List<Long> seriesDatas = new ArrayList<>();
+		List<Object> seriesDatas = new ArrayList<>();
 		for (String yearTimeStamp : updateTimeMap.keySet()) {
 			// 格式化日期
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
@@ -63,15 +63,14 @@ public class RuanjianServiceImpl implements RuanjianService {
 		return result;
 	}
 
-	
 	@Override
 	public LineData getFileSize() {
 		// 下标边界数组
 		Integer[] xAxis = { 1, 10, 20, 30, 50, 100, 200, 300, 500, 1000 };
 		LineData result = new LineData();
 		List<String> xAxisNames = new ArrayList<>();
-		List<Long> seriesDatas = new ArrayList<>();
-		Map<String, Long> fileSizeMap = esDao.getFileSize(xAxis);
+		List<Object> seriesDatas = new ArrayList<>();
+		Map<String, Object> fileSizeMap = esDao.getFileSize(xAxis, "count");
 		for (String xAxisName : fileSizeMap.keySet()) {
 			xAxisNames.add(xAxisName);
 			seriesDatas.add(fileSizeMap.get(xAxisName));
@@ -124,5 +123,42 @@ public class RuanjianServiceImpl implements RuanjianService {
 		}
 		return result;
 	}
-	
+
+	@Override
+	public LineData getFileSize(String aggSize, String aggSizesArray) {
+		// 转化数组
+		String[] aggMinutesStrs = aggSizesArray.split(",");
+		Integer[] aggMinutes = new Integer[aggMinutesStrs.length];
+		for (int i = 0; i < aggMinutesStrs.length; i++) {
+			aggMinutes[i] = Integer.parseInt(aggMinutesStrs[i]);
+		}
+		// 下标边界数组
+		Integer[] xAxis = aggMinutes;
+		LineData result = new LineData();
+		List<String> xAxisNames = new ArrayList<>();
+		List<Object> seriesDatas = new ArrayList<>();
+		Map<String, Object> fileSizeMap = esDao.getFileSize(xAxis, aggSize);
+		for (String xAxisName : fileSizeMap.keySet()) {
+			xAxisNames.add(xAxisName);
+			seriesDatas.add((Object) fileSizeMap.get(xAxisName));
+		}
+		result.setxAxisNames(xAxisNames);
+		result.setSeriesDatas(seriesDatas);
+		return result;
+	}
+
+	@Override
+	public LineData getFileSize(String aggType, Integer aggSize) {
+		// 假设上线为1000
+		String aggSizesArray = "";
+		for (int size = aggSize; size <= 1000; size += aggSize) {
+			if (size + aggSize > 1000) {
+				aggSizesArray += size;
+			} else {
+				aggSizesArray += size + ",";
+			}
+		}
+		return getFileSize(aggType, aggSizesArray);
+	}
+
 }

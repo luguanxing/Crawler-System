@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>数据可视化系统</title>
+        <div th:include="tags/tag::css"></div>
+        <div th:include="tags/tag::js"></div>
+        <!-- echarts -->
+        <script src="/assets/js/echarts.min.js"></script>
+    </head>
+    
+    <body>
+        <div id="wrapper">
+            <!-- 导航栏 -->
+            <div th:include="tags/tag::nav"></div>
+            <div th:include="tags/nav::left"></div>
+            <script>
+                $(function(){ 
+                    $("#ruanjian_form").addClass("active-menu");
+                    $("#ruanjian_nav").click();
+                })
+            </script>
+            <!-- 正文  -->
+            <div id="page-wrapper" style="min-height:800px">
+                <div id="page-inner" style="min-height:800px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">文件大小 <small>自定义分布查询</small></h1>
+                    </div>
+                </div> 
+                <!-- /. ROW  -->                   
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">文件分布大小自定义查询</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label>文件聚合类型</label>
+                                                <select id="aggType" class="form-control">
+                                                    <option value="count">统计量</option>
+                                                    <option value="avg">平均值</option>
+                                                    <option value="max">最大值</option>
+                                                    <option value="min">最小值</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label>文件大小粒度</label>
+                                                <select id="zdySelect" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="50">50</option>
+                                                    <option value="-1">自定义输入</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <form role="form">
+                                            <div class="form-group">
+                                            <label>自定义大小粒度</label>
+                                            <input id="zdyInput" disabled="disabled" class="form-control" placeholder="输入递增数组，逗号分隔">
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /.row (nested) -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form role="form">
+                                            <span onclick="submit()" class="btn col-lg-1 col-lg-offset-11 btn-primary">查询</span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-12 col-sm-12 col-xs-12">                     
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">/data/ruanjian/fileSize</div>
+                                    <div class="panel-body">
+                                        <div id="fileSizeChart" style="width:600px; height: 400px;"></div>
+                                    </div>
+                                </div>            
+                            </div>
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+              </div>
+            </div>
+          <!-- /. PAGE WRAPPER  -->
+        </div>
+        <!-- /. WRAPPER  -->
+        <script src="/assets/js/softForm.js"></script>
+    </body>
+
+</html>

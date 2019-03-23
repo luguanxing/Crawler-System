@@ -80,4 +80,17 @@ public class RuanjianDataController {
 		return new Gson().toJson(typeJson);
 	}
 
+	@RequestMapping("/query")
+	@ResponseBody
+	public String query(@RequestParam String aggType, @RequestParam Integer aggSize, @RequestParam String aggSizesArray) {
+		LineData fileSizeData = null; 
+		if (aggSize == -1) {
+			// 自定义聚合
+			fileSizeData = esService.getFileSize(aggType, aggSizesArray);
+		} else {
+			// 固定指标聚合
+			fileSizeData = esService.getFileSize(aggType, aggSize);
+		}
+		return new Gson().toJson(fileSizeData);
+	}
 }

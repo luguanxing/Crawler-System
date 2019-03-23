@@ -46,8 +46,10 @@ public class EsDaoTest {
 	@Test
 	public void testFileSizeAgg() {
 		Integer[] xAxis = { 1, 10, 50, 100, 200, 500, 1000 };
-		Map<String, Long> result = esDao.getFileSize(xAxis);
-		System.out.println(result);
+		Map<String, Object> resultCount = esDao.getFileSize(xAxis, "count");
+		System.out.println(resultCount);
+		Map<String, Object> resultAvg = esDao.getFileSize(xAxis, "avg");
+		System.out.println(resultAvg);
 	}
 	
 	@Test

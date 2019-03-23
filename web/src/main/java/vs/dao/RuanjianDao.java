@@ -15,8 +15,8 @@ public interface RuanjianDao {
 	
 	Map<String, Long> getUpdateTime();
 
-	Map<String, Long>  getFileSize(Integer[] xAxis);
-	
+	Map<String, Object> getFileSize(Integer[] xAxis, String aggType);
+
 	Map<String, Double> getRateAvgDownloadTimes();
 
 	Map<String, Long> getCategory();

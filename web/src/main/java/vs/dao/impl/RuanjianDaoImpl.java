@@ -13,6 +13,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
@@ -25,6 +26,8 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms.Order;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.avg.AvgAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.avg.InternalAvg;
+import org.elasticsearch.search.aggregations.metrics.stats.Stats;
+import org.elasticsearch.search.aggregations.metrics.stats.StatsAggregationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -109,7 +112,7 @@ public class RuanjianDaoImpl implements RuanjianDao {
 	}
 
 	@Override
-	public Map<String, Long> getFileSize(Integer[] xAxis) {
+	public Map<String, Object> getFileSize(Integer[] xAxis, String aggType) {
 		SearchRequestBuilder srb = client.prepareSearch(INDEX).setTypes(TYPE_RUANJIAN);
 		RangeAggregationBuilder rangeAggs = AggregationBuilders.range("size_range").field("softSize");
 		rangeAggs.addUnboundedTo(xAxis[0]);
@@ -117,16 +120,31 @@ public class RuanjianDaoImpl implements RuanjianDao {
 			rangeAggs.addRange(xAxis[i], xAxis[i + 1]);
 		}
 		rangeAggs.addUnboundedFrom(xAxis[xAxis.length - 1]);
+		StatsAggregationBuilder statsAggregationBuilder = AggregationBuilders.stats("size_stats").field("softSize");
+		rangeAggs.subAggregation(statsAggregationBuilder);
 		srb.addAggregation(rangeAggs).setSize(0);
 		SearchResponse response = srb.execute().actionGet();
 		Map<String, Aggregation> aggMap = response.getAggregations().asMap();
 		Range rangeAgg = (Range) aggMap.get("size_range");
 		List<? extends org.elasticsearch.search.aggregations.bucket.range.Range.Bucket> buckets = rangeAgg.getBuckets();
-		Map<String, Long> result = new LinkedHashMap<>();
+		Map<String, Object> result = new LinkedHashMap<>();
 		for (org.elasticsearch.search.aggregations.bucket.range.Range.Bucket bucket : buckets) {
 			Long count = bucket.getDocCount();
 			String name = bucket.getKeyAsString();
-			result.put(name, count);
+			Aggregations aggregations = bucket.getAggregations();
+			Stats stats = aggregations.get("size_stats");
+			if ("count".equals(aggType)) {
+				result.put(name, count);
+			}
+			if ("avg".equals(aggType)) {
+				result.put(name, "-Infinity".equals(stats.getAvgAsString()) || "Infinity".equals(stats.getAvgAsString()) || "NaN".equals(stats.getAvgAsString())  ? 0 : stats.getAvg());
+			}
+			if ("max".equals(aggType)) {
+				result.put(name,  "-Infinity".equals(stats.getMaxAsString()) || "Infinity".equals(stats.getMaxAsString()) || "NaN".equals(stats.getMaxAsString()) ? 0 : stats.getMax());
+			}
+			if ("min".equals(aggType)) {
+				result.put(name, "-Infinity".equals(stats.getMinAsString()) || "Infinity".equals(stats.getMinAsString()) || "NaN".equals(stats.getMinAsString()) ? 0 : stats.getMin());
+			}
 		}
 		return result;
 	}

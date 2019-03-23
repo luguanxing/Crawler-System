@@ -6,7 +6,7 @@ public class LineData {
 
 	List<String> xAxisNames;
 	
-	List<Long> seriesDatas;
+	List<Object> seriesDatas;
 
 	public List<String> getxAxisNames() {
 		return xAxisNames;
@@ -16,11 +16,11 @@ public class LineData {
 		this.xAxisNames = xAxisNames;
 	}
 
-	public List<Long> getSeriesDatas() {
+	public List<Object> getSeriesDatas() {
 		return seriesDatas;
 	}
 
-	public void setSeriesDatas(List<Long> seriesDatas) {
+	public void setSeriesDatas(List<Object> seriesDatas) {
 		this.seriesDatas = seriesDatas;
 	}
 
